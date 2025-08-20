@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="particles-js"></div>
+  <nav>
+    <ul>
+      <li><a href="dashboard.html" class="active">Dashboard</a></li>
+      <li><a href="deposit.html">Deposit</a></li>
+      <li><a href="withdraw.html">Withdraw</a></li>
+      <li><a href="history.html">History</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>Welcome to Your Dashboard</h1>
+    <div class="balance-box">
+      <h2>Account Balance: <span id="balance">$0</span></h2>
+    </div>
+  </header>
+
+  <section class="plans">
+    <div class="plan">
+      <h3>Basic Plan</h3>
+      <p>Payout: $20</p>
+      <p>Duration: 7 days</p>
+      <button onclick="subscribePlan('Basic Plan', 20, 7)">Subscribe</button>
+    </div>
+    <div class="plan">
+      <h3>Premium Plan</h3>
+      <p>Payout: $35</p>
+      <p>Duration: 5 days</p>
+      <button onclick="subscribePlan('Premium Plan', 35, 5)">Subscribe</button>
+    </div>
+    <div class="plan">
+      <h3>Silver Plan</h3>
+      <p>Payout: $50</p>
+      <p>Duration: 3 days</p>
+      <button onclick="subscribePlan('Silver Plan', 50, 3)">Subscribe</button>
+    </div>
+    <div class="plan">
+      <h3>Gold Plan</h3>
+      <p>Payout: $60</p>
+      <p>Duration: 2 days</p>
+      <p>Subscription: $40</p>
+      <button onclick="subscribePlan('Gold Plan', 40, 2)">Subscribe</button>
+    </div>
+    <div class="plan">
+      <h3>Diamond Plan</h3>
+      <p>Payout: $80</p>
+      <p>Duration: 2 days</p>
+      <p>Subscription: $50</p>
+      <button onclick="subscribePlan('Diamond Plan', 50, 2)">Subscribe</button>
+    </div>
+  </section>
+
+  <script src="particles.js"></script>
+  <script src="script.js"></script>
+</body>
+  </html>
