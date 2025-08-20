@@ -1,3 +1,63 @@
+/* Fade + slide up animation */
+@keyframes slideFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+/* Apply animation to buttons */
+.dashboard-btn {
+    display: inline-block;
+    margin: 15px;
+    padding: 15px 35px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #6c63ff, #00d4ff);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+
+    /* Animation */
+    opacity: 0;
+    animation: slideFadeIn 0.8s forwards;
+}
+
+/* Stagger the buttons animation using delay */
+.dashboard-btn:nth-child(1) {
+    animation-delay: 0.1s;
+}
+.dashboard-btn:nth-child(2) {
+    animation-delay: 0.3s;
+}
+.dashboard-btn:nth-child(3) {
+    animation-delay: 0.5s;
+}
+.dashboard-btn:nth-child(4) {
+    animation-delay: 0.7s;
+}
+
+/* Hover animation */
+.dashboard-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #00d4ff, #6c63ff);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .dashboard-btn {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+}
 /* DASHBOARD STYLING */
 .dashboard {
   padding: 40px;
