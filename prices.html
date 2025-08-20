@@ -3,53 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plans & Prices</title>
+  <title>Plans - CryptoInvest</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="particles-js"></div>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="prices.html" class="active">Prices</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+  <!-- Background Animation -->
+  <canvas id="bgCanvas"></canvas>
 
-  <header>
-    <h1>Choose Your Plan</h1>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">₿ CryptoInvest</div>
+    <nav class="nav-buttons">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="deposit.html">Deposit</a>
+      <a href="withdraw.html">Withdraw</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
 
-  <section class="plans">
-    <div class="plan">
-      <h3>Basic Plan</h3>
-      <p>Payout: $20</p>
-      <p>Duration: 7 days</p>
+  <!-- Plans Section -->
+  <main class="plans-page">
+    <h2>Our Investment Plans</h2>
+    <div class="plans-container">
+      <div class="plan-card">
+        <h3>Starter Plan</h3>
+        <p>Payout: $20</p>
+        <p>Duration: 7 days</p>
+        <p>Subscription: $10</p>
+      </div>
+      <div class="plan-card">
+        <h3>Standard Plan</h3>
+        <p>Payout: $35</p>
+        <p>Duration: 5 days</p>
+        <p>Subscription: $20</p>
+      </div>
+      <div class="plan-card">
+        <h3>Premium Plan</h3>
+        <p>Payout: $50</p>
+        <p>Duration: 3 days</p>
+        <p>Subscription: $30</p>
+      </div>
+      <div class="plan-card">
+        <h3>Gold Plan</h3>
+        <p>Payout: $60</p>
+        <p>Duration: 2 days</p>
+        <p>Subscription: $40</p>
+      </div>
+      <div class="plan-card">
+        <h3>Diamond Plan</h3>
+        <p>Payout: $80</p>
+        <p>Duration: 2 days</p>
+        <p>Subscription: $50</p>
+      </div>
     </div>
-    <div class="plan">
-      <h3>Premium Plan</h3>
-      <p>Payout: $35</p>
-      <p>Duration: 5 days</p>
-    </div>
-    <div class="plan">
-      <h3>Silver Plan</h3>
-      <p>Payout: $50</p>
-      <p>Duration: 3 days</p>
-    </div>
-    <div class="plan">
-      <h3>Gold Plan</h3>
-      <p>Payout: $60</p>
-      <p>Duration: 2 days</p>
-      <p>Subscription: $40</p>
-    </div>
-    <div class="plan">
-      <h3>Diamond Plan</h3>
-      <p>Payout: $80</p>
-      <p>Duration: 2 days</p>
-      <p>Subscription: $50</p>
-    </div>
-  </section>
+  </main>
 
-  <script src="particles.js"></script>
+  <script src="script.js"></script>
 </body>
-  </html>
+        </html>
