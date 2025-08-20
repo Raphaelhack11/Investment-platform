@@ -3,35 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deposit</title>
+  <title>Deposit - CryptoInvest</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="particles-js"></div>
+  <!-- Background Animation -->
+  <canvas id="bgCanvas"></canvas>
 
-  <nav>
-    <ul>
-      <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="deposit.html" class="active">Deposit</a></li>
-      <li><a href="withdraw.html">Withdraw</a></li>
-      <li><a href="history.html">History</a></li>
-    </ul>
-  </nav>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">₿ CryptoInvest</div>
+    <nav class="nav-buttons">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="withdraw.html">Withdraw</a>
+      <a href="prices.html">Plans</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-  <section class="deposit">
-    <h2>Deposit Funds</h2>
-    <p>Enter amount to deposit in USD</p>
-    <input type="number" id="depositAmount" placeholder="Amount in USD">
+  <!-- Deposit Section -->
+  <main class="deposit-page">
+    <h2>Make a Deposit</h2>
+    <form class="deposit-form">
+      <label for="amount">Enter Amount (USD)</label>
+      <input type="number" id="amount" placeholder="e.g. 100" required>
 
-    <h3>Payment Method: Bitcoin</h3>
-    <p>Transfer exact amount to wallet address:</p>
-    <p id="btcAddress">bc1q4c6f7xzsekkpvd2guwkaww4m7se9yjlrxnrjc7</p>
-    <button onclick="copyAddress()">Copy Address</button>
+      <label>Payment Method</label>
+      <p><strong>Bitcoin</strong></p>
 
-    <button onclick="confirmDeposit()">Sent</button>
-  </section>
+      <div class="wallet-box">
+        <span id="walletAddress">bc1q4c6f7xzsekkpvd2guwkaww4m7se9yjlrxnrjc7</span>
+        <button type="button" id="copyBtn">Copy</button>
+      </div>
 
-  <script src="particles.js"></script>
+      <button type="submit" class="submit-btn">I’ve Sent the Payment</button>
+    </form>
+  </main>
+
   <script src="script.js"></script>
 </body>
 </html>
