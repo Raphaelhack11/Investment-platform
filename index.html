@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Investment</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="particles-js"></div>
+  <nav>
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="prices.html">Prices</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <button id="loginBtn">Login</button>
+      <button id="signupBtn">Signup</button>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Invest in your <span class="highlight">financial future</span></h1>
+    <p>Join our platform to grow your wealth and achieve your financial goals.</p>
+    <a href="prices.html" class="btn">Get Started</a>
+  </header>
+
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('loginModal')">&times;</span>
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email">
+      <input type="password" id="loginPassword" placeholder="Password">
+      <button onclick="loginUser()">Login</button>
+    </div>
+  </div>
+
+  <!-- Signup Modal -->
+  <div class="modal" id="signupModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('signupModal')">&times;</span>
+      <h2>Signup</h2>
+      <input type="email" id="signupEmail" placeholder="Email">
+      <input type="password" id="signupPassword" placeholder="Password">
+      <button onclick="signupUser()">Signup</button>
+    </div>
+  </div>
+
+  <script src="particles.js"></script>
+  <script src="script.js"></script>
+</body>
+      </html>
