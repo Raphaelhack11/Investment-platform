@@ -8,6 +8,8 @@
 </head>
 <body>
   <div id="particles-js"></div>
+
+  <!-- Navigation -->
   <nav>
     <ul>
       <li><a href="index.html" class="active">Home</a></li>
@@ -15,11 +17,13 @@
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-buttons">
-      <button id="loginBtn">Login</button>
-      <button id="signupBtn">Signup</button>
+      <!-- ✅ Now opens modals -->
+      <button onclick="openModal('loginModal')">Login</button>
+      <button onclick="openModal('signupModal')">Signup</button>
     </div>
   </nav>
 
+  <!-- Hero Section -->
   <header>
     <h1>Invest in your <span class="highlight">financial future</span></h1>
     <p>Join our platform to grow your wealth and achieve your financial goals.</p>
@@ -33,7 +37,8 @@
       <h2>Login</h2>
       <input type="email" id="loginEmail" placeholder="Email">
       <input type="password" id="loginPassword" placeholder="Password">
-      <button onclick="loginUser()">Login</button>
+      <!-- ✅ Calls login() from script.js -->
+      <button onclick="login()">Login</button>
     </div>
   </div>
 
@@ -44,11 +49,13 @@
       <h2>Signup</h2>
       <input type="email" id="signupEmail" placeholder="Email">
       <input type="password" id="signupPassword" placeholder="Password">
-      <button onclick="signupUser()">Signup</button>
+      <!-- ✅ Calls signup() from script.js -->
+      <button onclick="signup()">Signup</button>
     </div>
   </div>
 
+  <!-- Scripts -->
   <script src="particles.js"></script>
   <script src="script.js"></script>
 </body>
-      </html>
+        </html>
