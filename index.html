@@ -7,33 +7,32 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Background Animation -->
   <canvas id="bgCanvas"></canvas>
 
-  <!-- Navbar -->
-  <nav>
-    <ul>
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="prices.html">Prices</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><button onclick="openModal('loginModal')">Login</button></li>
-      <li><button onclick="openModal('signupModal')">Sign Up</button></li>
-    </ul>
-  </nav>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">₿ CryptoInvest</div>
+    <div class="nav-buttons">
+      <button onclick="openModal('loginModal')">Login</button>
+      <button onclick="openModal('signupModal')">Sign Up</button>
+    </div>
+  </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>Grow Your Wealth With Crypto</h1>
-    <p>Trusted crypto investment platform with flexible plans and instant payouts.</p>
-    <button onclick="openModal('signupModal')">Get Started</button>
-  </section>
+  <!-- Landing Content -->
+  <main class="landing">
+    <h1>Invest in Crypto, Secure Your Future</h1>
+    <p>Flexible investment plans, instant payouts, trusted worldwide.</p>
+    <button class="cta" onclick="openModal('signupModal')">Get Started</button>
+  </main>
 
   <!-- Login Modal -->
   <div id="loginModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal('loginModal')">&times;</span>
       <h2>Login</h2>
-      <input type="email" id="loginEmail" placeholder="Email" required>
-      <input type="password" id="loginPassword" placeholder="Password" required>
+      <input type="email" id="loginEmail" placeholder="Email">
+      <input type="password" id="loginPassword" placeholder="Password">
       <button onclick="login()">Login</button>
     </div>
   </div>
@@ -43,12 +42,12 @@
     <div class="modal-content">
       <span class="close" onclick="closeModal('signupModal')">&times;</span>
       <h2>Sign Up</h2>
-      <input type="email" id="signupEmail" placeholder="Email" required>
-      <input type="password" id="signupPassword" placeholder="Password" required>
+      <input type="email" id="signupEmail" placeholder="Email">
+      <input type="password" id="signupPassword" placeholder="Password">
       <button onclick="signup()">Sign Up</button>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-        </html>
+                                                                       </html>
