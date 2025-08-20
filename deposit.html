@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deposit Funds</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="particles-js"></div>
+  <nav>
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="deposit.html" class="active">Deposit</a></li>
+      <li><a href="withdraw.html">Withdraw</a></li>
+      <li><a href="history.html">History</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>Deposit Funds</h1>
+  </header>
+
+  <section class="deposit-box">
+    <label>Amount (USD)</label>
+    <input type="number" id="depositAmount" placeholder="Enter amount">
+
+    <p><b>Payment Method:</b> Bitcoin</p>
+    <p>Send the exact amount in BTC to:</p>
+    <div class="wallet-box">
+      <span id="btcAddress">bc1q4c6f7xzsekkpvd2guwkaww4m7se9yjlrxnrjc7</span>
+      <button onclick="copyAddress()">Copy</button>
+    </div>
+
+    <button onclick="confirmDeposit()">I have sent</button>
+  </section>
+
+  <script src="particles.js"></script>
+  <script src="script.js"></script>
+</body>
+        </html>
