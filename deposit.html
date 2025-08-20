@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deposit Funds</title>
+  <title>Deposit</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="particles-js"></div>
+
   <nav>
     <ul>
       <li><a href="dashboard.html">Dashboard</a></li>
@@ -17,25 +18,20 @@
     </ul>
   </nav>
 
-  <header>
-    <h1>Deposit Funds</h1>
-  </header>
+  <section class="deposit">
+    <h2>Deposit Funds</h2>
+    <p>Enter amount to deposit in USD</p>
+    <input type="number" id="depositAmount" placeholder="Amount in USD">
 
-  <section class="deposit-box">
-    <label>Amount (USD)</label>
-    <input type="number" id="depositAmount" placeholder="Enter amount">
+    <h3>Payment Method: Bitcoin</h3>
+    <p>Transfer exact amount to wallet address:</p>
+    <p id="btcAddress">bc1q4c6f7xzsekkpvd2guwkaww4m7se9yjlrxnrjc7</p>
+    <button onclick="copyAddress()">Copy Address</button>
 
-    <p><b>Payment Method:</b> Bitcoin</p>
-    <p>Send the exact amount in BTC to:</p>
-    <div class="wallet-box">
-      <span id="btcAddress">bc1q4c6f7xzsekkpvd2guwkaww4m7se9yjlrxnrjc7</span>
-      <button onclick="copyAddress()">Copy</button>
-    </div>
-
-    <button onclick="confirmDeposit()">I have sent</button>
+    <button onclick="confirmDeposit()">Sent</button>
   </section>
 
   <script src="particles.js"></script>
   <script src="script.js"></script>
 </body>
-        </html>
+</html>
