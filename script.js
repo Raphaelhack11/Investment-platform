@@ -1,18 +1,6 @@
-// ========== GLOBAL STORAGE ==========
-let users = JSON.parse(localStorage.getItem("users")) || [];
-let currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
-let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-
-// Save data
-function saveData() {
-  localStorage.setItem("users", JSON.stringify(users));
-  localStorage.setItem("currentUser", JSON.stringify(currentUser));
-  localStorage.setItem("transactions", JSON.stringify(transactions));
-}
-
-// ========== AUTH ==========
+// -------------------- AUTH --------------------
 function openModal(id) {
-  document.getElementById(id).style.display = "flex";
+  document.getElementById(id).style.display = "block";
 }
 
 function closeModal(id) {
@@ -24,176 +12,260 @@ function signup() {
   const password = document.getElementById("signupPassword").value;
 
   if (!email || !password) {
-    alert("Please fill in all fields.");
+    alert("Please enter email and password.");
     return;
   }
 
-  if (users.find(u => u.email === email)) {
-    alert("Email already exists.");
-    return;
-  }
-
-  const newUser = { email, password, balance: 0, plans: [] };
-  users.push(newUser);
-  currentUser = newUser;
-  saveData();
-
-  alert("Signup successful! You are logged in.");
-  window.location.href = "dashboard.html";
+  localStorage.setItem("user", JSON.stringify({ email, password, balance: 0, plans: [], history: [] }));
+  alert("Signup successful! You can now log in.");
+  closeModal("signupModal");
 }
 
 function login() {
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
 
-  const user = users.find(u => u.email === email && u.password === password);
-
-  if (!user) {
-    alert("Invalid credentials!");
-    return;
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user && user.email === email && user.password === password) {
+    alert("Login successful!");
+    window.location.href = "dashboard.html";
+  } else {
+    alert("Invalid credentials.");
   }
-
-  currentUser = user;
-  saveData();
-  window.location.href = "dashboard.html";
 }
 
-// ========== DASHBOARD ==========
+// -------------------- DASHBOARD --------------------
 function loadDashboard() {
-  if (!currentUser) return;
-
-  document.getElementById("balance").innerText = `$${currentUser.balance}`;
-
-  // Render active plans
-  if (document.getElementById("activePlans")) {
-    document.getElementById("activePlans").innerHTML = currentUser.plans.map(plan => `
-      <div class="plan">
-        <h4>${plan.name}</h4>
-        <p>Expires: ${new Date(plan.expires).toLocaleString()}</p>
-      </div>
-    `).join("");
-  }
-}
-
-function subscribePlan(name, cost, duration) {
-  if (!currentUser) {
-    alert("Login required.");
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) {
+    alert("Please log in.");
+    window.location.href = "index.html";
     return;
   }
 
-  if (currentUser.balance < cost) {
+  document.getElementById("balance").innerText = "$" + user.balance;
+
+  // Active plans
+  const activePlansDiv = document.getElementById("activePlans");
+  if (activePlansDiv) {
+    activePlansDiv.innerHTML = "";
+    user.plans.forEach(plan => {
+      const div = document.createElement("div");
+      div.classList.add("plan");
+      div.innerHTML = `<strong>${plan.name}</strong><br> Payout: $${plan.payout}<br> Ends: ${new Date(plan.end).toLocaleString()}`;
+      activePlansDiv.appendChild(div);
+    });
+  }
+}
+
+function subscribePlan(name, cost, payout, days) {
+  let user = JSON.parse(localStorage.getItem("user"));
+  if (!user) return;
+
+  if (user.balance < cost) {
     alert("Insufficient balance!");
     return;
   }
 
-  currentUser.balance -= cost;
-  const expiry = new Date();
-  expiry.setDate(expiry.getDate() + duration);
+  user.balance -= cost;
+  const end = Date.now() + days * 24 * 60 * 60 * 1000;
+  user.plans.push({ name, payout, end });
+  user.history.push({ type: "Subscription", amount: cost, status: "Active" });
 
-  currentUser.plans.push({ name, expires: expiry });
-  transactions.push({ type: "Subscription", name, amount: cost, date: new Date(), status: "Active" });
-
-  saveData();
-  alert("Plan subscribed successfully!");
+  localStorage.setItem("user", JSON.stringify(user));
+  alert("Subscribed to " + name + " plan!");
   loadDashboard();
 }
 
-// ========== DEPOSIT ==========
-function copyAddress() {
-  const address = document.getElementById("btcAddress").innerText;
-  navigator.clipboard.writeText(address);
-  alert("Wallet address copied!");
+// -------------------- DEPOSIT --------------------
+function openDepositModal() {
+  openModal("depositModal");
 }
 
-function confirmDeposit() {
+function sendDeposit() {
   const amount = document.getElementById("depositAmount").value;
   if (!amount || amount <= 0) {
-    alert("Enter a valid amount.");
+    alert("Enter a valid amount");
     return;
   }
 
-  transactions.push({ type: "Deposit", amount, date: new Date(), status: "Pending" });
-  saveData();
+  let user = JSON.parse(localStorage.getItem("user"));
+  user.history.push({ type: "Deposit", amount, status: "Waiting for confirmation" });
+  localStorage.setItem("user", JSON.stringify(user));
 
-  window.location.href = "history.html";
+  alert("Please send $" + amount + " worth of BTC to the wallet address shown.");
+  closeModal("depositModal");
+  window.location.href = "transactions.html";
 }
 
-// ========== WITHDRAW ==========
-function confirmWithdraw() {
+// -------------------- WITHDRAW --------------------
+function requestWithdrawal(e) {
+  e.preventDefault();
   const amount = document.getElementById("withdrawAmount").value;
-  const wallet = document.getElementById("withdrawWallet").value;
+  const address = document.getElementById("withdrawAddress").value;
 
-  if (!amount || amount <= 0 || !wallet) {
-    alert("Enter amount and wallet address.");
-    return;
-  }
-
-  if (currentUser.balance < amount) {
+  let user = JSON.parse(localStorage.getItem("user"));
+  if (amount > user.balance) {
     alert("Insufficient balance.");
     return;
   }
 
-  currentUser.balance -= amount;
-  transactions.push({ type: "Withdraw", amount, wallet, date: new Date(), status: "Pending" });
-  saveData();
+  user.balance -= amount;
+  user.history.push({ type: "Withdrawal", amount, status: "Pending", address });
+  localStorage.setItem("user", JSON.stringify(user));
 
   alert("Withdrawal request submitted!");
-  window.location.href = "history.html";
+  window.location.href = "transactions.html";
 }
 
-// ========== HISTORY ==========
-function showTab(type) {
-  let filtered = transactions.filter(tx => tx.type.toLowerCase() === type.toLowerCase());
-  let html = `<table border="1" width="100%" cellpadding="10">
-    <tr><th>Type</th><th>Amount</th><th>Status</th><th>Date</th></tr>
-    ${filtered.map(tx => `
-      <tr>
-        <td>${tx.type}</td>
-        <td>${tx.amount}</td>
-        <td>${tx.status}</td>
-        <td>${new Date(tx.date).toLocaleString()}</td>
-      </tr>
-    `).join("")}
-  </table>`;
-  document.getElementById("historyTable").innerHTML = html;
+// -------------------- TRANSACTIONS --------------------
+function loadTransactions() {
+  let user = JSON.parse(localStorage.getItem("user"));
+  const table = document.getElementById("transactionsTable");
+
+  if (table && user) {
+    table.innerHTML = "<tr><th>Type</th><th>Amount</th><th>Status</th></tr>";
+    user.history.forEach(h => {
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${h.type}</td><td>$${h.amount}</td><td>${h.status}</td>`;
+      table.appendChild(row);
+    });
+  }
 }
 
-// ========== ADMIN ==========
+// -------------------- CONTACT --------------------
+function sendMessage(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const message = document.getElementById("message").value;
+
+  if (!name || !email || !message) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  alert("Thank you for contacting us, " + name + "! We’ll reply soon.");
+  document.getElementById("name").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("message").value = "";
+}
+
+// -------------------- ADMIN --------------------
 function adminLogin() {
-  const user = document.getElementById("adminUser").value;
-  const pass = document.getElementById("adminPass").value;
+  const username = document.getElementById("adminUser").value;
+  const password = document.getElementById("adminPass").value;
 
-  if (user === "admin" && pass === "admin123") {
-    document.getElementById("adminLogin").classList.add("hidden");
-    document.getElementById("adminPanel").classList.remove("hidden");
-    loadPendingTx();
+  if (username === "admin" && password === "admin123") {
+    document.getElementById("adminLoginForm").style.display = "none";
+    document.getElementById("adminDashboard").style.display = "block";
+    loadAdminData();
   } else {
     alert("Invalid admin credentials.");
   }
 }
 
-function loadPendingTx() {
-  const pending = transactions.filter(tx => tx.status === "Pending");
-  document.getElementById("pendingTx").innerHTML = pending.map((tx, i) => `
-    <div class="plan">
-      <p><b>${tx.type}</b> - $${tx.amount}</p>
-      <p>Date: ${new Date(tx.date).toLocaleString()}</p>
-      <button onclick="approveTx(${i})">Approve</button>
-    </div>
-  `).join("");
+function loadAdminData() {
+  let user = JSON.parse(localStorage.getItem("user"));
+  if (!user) return;
+
+  const pendingDeposits = document.getElementById("pendingDeposits");
+  const pendingWithdrawals = document.getElementById("pendingWithdrawals");
+
+  pendingDeposits.innerHTML = "";
+  pendingWithdrawals.innerHTML = "";
+
+  user.history.forEach((h, i) => {
+    if (h.type === "Deposit" && h.status === "Waiting for confirmation") {
+      const div = document.createElement("div");
+      div.innerHTML = `Deposit $${h.amount} <button onclick="approveDeposit(${i})">Approve</button>`;
+      pendingDeposits.appendChild(div);
+    }
+    if (h.type === "Withdrawal" && h.status === "Pending") {
+      const div = document.createElement("div");
+      div.innerHTML = `Withdraw $${h.amount} to ${h.address} <button onclick="approveWithdrawal(${i})">Approve</button>`;
+      pendingWithdrawals.appendChild(div);
+    }
+  });
 }
 
-function approveTx(index) {
-  let pending = transactions.filter(tx => tx.status === "Pending");
-  let tx = pending[index];
+function approveDeposit(i) {
+  let user = JSON.parse(localStorage.getItem("user"));
+  user.balance += parseFloat(user.history[i].amount);
+  user.history[i].status = "Approved";
+  localStorage.setItem("user", JSON.stringify(user));
+  loadAdminData();
+}
 
-  tx.status = "Approved";
+function approveWithdrawal(i) {
+  let user = JSON.parse(localStorage.getItem("user"));
+  user.history[i].status = "Approved";
+  localStorage.setItem("user", JSON.stringify(user));
+  loadAdminData();
+}
 
-  if (tx.type === "Deposit") {
-    currentUser.balance += parseFloat(tx.amount);
+// -------------------- BACKGROUND PARTICLES --------------------
+const canvas = document.getElementById("bgCanvas");
+if (canvas) {
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const particles = [];
+  const bitcoins = [];
+
+  for (let i = 0; i < 50; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 3 + 1,
+      dx: (Math.random() - 0.5) * 1,
+      dy: (Math.random() - 0.5) * 1
+    });
   }
 
-  saveData();
-  alert("Transaction approved!");
-  loadPendingTx();
+  for (let i = 0; i < 10; i++) {
+    bitcoins.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: 20 + Math.random() * 10,
+      dx: (Math.random() - 0.5) * 0.6,
+      dy: (Math.random() - 0.5) * 0.6
+    });
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#ddd";
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fill();
+      p.x += p.dx;
+      p.y += p.dy;
+      if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+    });
+
+    ctx.font = "20px Arial";
+    bitcoins.forEach(b => {
+      ctx.fillStyle = "gold";
+      ctx.fillText("₿", b.x, b.y);
+      b.x += b.dx;
+      b.y += b.dy;
+      if (b.x < 0 || b.x > canvas.width) b.dx *= -1;
+      if (b.y < 0 || b.y > canvas.height) b.dy *= -1;
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
 }
