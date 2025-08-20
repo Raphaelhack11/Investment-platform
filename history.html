@@ -6,8 +6,9 @@
   <title>Transaction History</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="loadHistory()">
   <div id="particles-js"></div>
+
   <nav>
     <ul>
       <li><a href="dashboard.html">Dashboard</a></li>
@@ -17,19 +18,24 @@
     </ul>
   </nav>
 
-  <header>
-    <h1>Transaction History</h1>
-  </header>
-
-  <section class="history-tabs">
-    <button onclick="showTab('deposits')">Deposits</button>
-    <button onclick="showTab('withdrawals')">Withdrawals</button>
-    <button onclick="showTab('subscriptions')">Subscriptions</button>
+  <section class="history">
+    <h2>Transaction History</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="historyTable">
+        <!-- Transactions load here via script.js -->
+      </tbody>
+    </table>
   </section>
-
-  <div id="historyTable"></div>
 
   <script src="particles.js"></script>
   <script src="script.js"></script>
 </body>
-      </html>
+</html>
