@@ -8,6 +8,7 @@
 </head>
 <body>
   <div id="particles-js"></div>
+
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
@@ -16,12 +17,19 @@
     </ul>
   </nav>
 
-  <header>
-    <h1>Contact Us</h1>
-    <p>Email: support@crypto.com</p>
-    <p>Phone: +1 234 567 890</p>
-  </header>
+  <section class="contact">
+    <h2>Contact Us</h2>
+    <p>Have any questions? Reach out using the form below.</p>
+
+    <form onsubmit="sendMessage(event)">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
 
   <script src="particles.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
