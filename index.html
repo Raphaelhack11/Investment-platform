@@ -3,59 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crypto Investment</title>
+  <title>Crypto Investment Platform</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="particles-js"></div>
+  <canvas id="bgCanvas"></canvas>
 
-  <!-- Navigation -->
+  <!-- Navbar -->
   <nav>
     <ul>
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="prices.html">Prices</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li><button onclick="openModal('loginModal')">Login</button></li>
+      <li><button onclick="openModal('signupModal')">Sign Up</button></li>
     </ul>
-    <div class="nav-buttons">
-      <!-- ✅ Now opens modals -->
-      <button onclick="openModal('loginModal')">Login</button>
-      <button onclick="openModal('signupModal')">Signup</button>
-    </div>
   </nav>
 
   <!-- Hero Section -->
-  <header>
-    <h1>Invest in your <span class="highlight">financial future</span></h1>
-    <p>Join our platform to grow your wealth and achieve your financial goals.</p>
-    <a href="prices.html" class="btn">Get Started</a>
-  </header>
+  <section class="hero">
+    <h1>Grow Your Wealth With Crypto</h1>
+    <p>Trusted crypto investment platform with flexible plans and instant payouts.</p>
+    <button onclick="openModal('signupModal')">Get Started</button>
+  </section>
 
   <!-- Login Modal -->
-  <div class="modal" id="loginModal">
+  <div id="loginModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal('loginModal')">&times;</span>
       <h2>Login</h2>
-      <input type="email" id="loginEmail" placeholder="Email">
-      <input type="password" id="loginPassword" placeholder="Password">
-      <!-- ✅ Calls login() from script.js -->
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
       <button onclick="login()">Login</button>
     </div>
   </div>
 
   <!-- Signup Modal -->
-  <div class="modal" id="signupModal">
+  <div id="signupModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal('signupModal')">&times;</span>
-      <h2>Signup</h2>
-      <input type="email" id="signupEmail" placeholder="Email">
-      <input type="password" id="signupPassword" placeholder="Password">
-      <!-- ✅ Calls signup() from script.js -->
-      <button onclick="signup()">Signup</button>
+      <h2>Sign Up</h2>
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="password" id="signupPassword" placeholder="Password" required>
+      <button onclick="signup()">Sign Up</button>
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="particles.js"></script>
   <script src="script.js"></script>
 </body>
         </html>
