@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="particles-js"></div>
+
+  <section class="admin-box" id="adminLogin">
+    <h1>Admin Login</h1>
+    <input type="text" id="adminUser" placeholder="Username">
+    <input type="password" id="adminPass" placeholder="Password">
+    <button onclick="adminLogin()">Login</button>
+  </section>
+
+  <section class="admin-panel hidden" id="adminPanel">
+    <h1>Admin Panel</h1>
+    <p>Here you can manually update deposits and withdrawals.</p>
+
+    <h2>Pending Transactions</h2>
+    <div id="pendingTx"></div>
+  </section>
+
+  <script src="particles.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
