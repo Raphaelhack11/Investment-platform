@@ -3,68 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Dashboard</title>
+  <title>Dashboard - CryptoInvest</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body onload="loadDashboard()">
-  <div id="particles-js"></div>
+<body>
+  <!-- Background Animation -->
+  <canvas id="bgCanvas"></canvas>
 
-  <nav>
-    <ul>
-      <li><a href="dashboard.html" class="active">Dashboard</a></li>
-      <li><a href="deposit.html">Deposit</a></li>
-      <li><a href="withdraw.html">Withdraw</a></li>
-      <li><a href="history.html">History</a></li>
-    </ul>
-  </nav>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">₿ CryptoInvest</div>
+    <nav class="nav-buttons">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="deposit.html">Deposit</a>
+      <a href="withdraw.html">Withdraw</a>
+      <a href="history.html">History</a>
+      <a href="prices.html">Plans</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-  <section class="dashboard">
-    <h2>Account Balance: <span id="balance">$0</span></h2>
+  <!-- Main Dashboard -->
+  <main class="dashboard">
+    <!-- Balance Card -->
+    <section class="balance-card">
+      <h2>Account Balance</h2>
+      <p id="accountBalance">$0</p>
+    </section>
 
-    <h3>Available Plans</h3>
-    <div class="plans">
-      <div class="plan">
+    <!-- Available Plans -->
+    <section class="plans">
+      <h2>Available Plans</h2>
+      <div class="plan-card">
         <h3>Starter Plan</h3>
         <p>Payout: $20</p>
         <p>Duration: 7 days</p>
         <p>Subscription: $10</p>
-        <button onclick="subscribePlan('Starter', 10, 7)">Subscribe</button>
+        <button onclick="subscribePlan('Starter Plan', 10)">Subscribe</button>
       </div>
-      <div class="plan">
+      <div class="plan-card">
         <h3>Standard Plan</h3>
         <p>Payout: $35</p>
         <p>Duration: 5 days</p>
         <p>Subscription: $20</p>
-        <button onclick="subscribePlan('Standard', 20, 5)">Subscribe</button>
+        <button onclick="subscribePlan('Standard Plan', 20)">Subscribe</button>
       </div>
-      <div class="plan">
+      <div class="plan-card">
         <h3>Premium Plan</h3>
         <p>Payout: $50</p>
         <p>Duration: 3 days</p>
         <p>Subscription: $30</p>
-        <button onclick="subscribePlan('Premium', 30, 3)">Subscribe</button>
+        <button onclick="subscribePlan('Premium Plan', 30)">Subscribe</button>
       </div>
-      <div class="plan">
+      <div class="plan-card">
         <h3>Gold Plan</h3>
         <p>Payout: $60</p>
         <p>Duration: 2 days</p>
         <p>Subscription: $40</p>
-        <button onclick="subscribePlan('Gold', 40, 2)">Subscribe</button>
+        <button onclick="subscribePlan('Gold Plan', 40)">Subscribe</button>
       </div>
-      <div class="plan">
+      <div class="plan-card">
         <h3>Diamond Plan</h3>
         <p>Payout: $80</p>
         <p>Duration: 2 days</p>
         <p>Subscription: $50</p>
-        <button onclick="subscribePlan('Diamond', 50, 2)">Subscribe</button>
+        <button onclick="subscribePlan('Diamond Plan', 50)">Subscribe</button>
       </div>
-    </div>
+    </section>
+  </main>
 
-    <h3>My Active Plans</h3>
-    <div id="activePlans"></div>
-  </section>
-
-  <script src="particles.js"></script>
   <script src="script.js"></script>
 </body>
-          </html>
+        </html>
